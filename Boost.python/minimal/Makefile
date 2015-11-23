@@ -1,18 +1,18 @@
 # location of the Python header files
  
-PYTHON_VERSION = 2.7
-PYTHON_INCLUDE = /usr/include/python$(PYTHON_VERSION)
  
+PYTHON_VERSION=2.7
+PYTHON_INCLUDE=-I/sw/comp/python/2.7.6_tintin/include/python2.7 -I/sw/comp/python/2.7.6_tintin/include/python2.7
 # location of the Boost Python include files and library
  
-BOOST_INC = /usr/include
-BOOST_LIB = /usr/lib
+BOOST_INC = $(BOOST_ROOT)/bin
+BOOST_LIB = $(BOOST_ROOT)/lib
  
 # compile mesh classes
 TARGET = hello_ext
  
 $(TARGET).so: $(TARGET).o
-	g++ -shared -Wl,--export-dynamic $(TARGET).o -L$(BOOST_LIB) -lboost_python-$(PYTHON_VERSION) -L/usr/lib/python$(PYTHON_VERSION)/config -lpython$(PYTHON_VERSION) -o $(TARGET).so
+	g++ -shared -Wl,--export-dynamic $(TARGET).o -L$(BOOST_LIB) -lboost_python -lpthread -ldl -lutil -lm -lpython2.7 -Xlinker -export-dynamic -o $(TARGET).so
  
-$(TARGET).o: $(TARGET).C
-	g++ -I$(PYTHON_INCLUDE) -I$(BOOST_INC) -fPIC -c $(TARGET).C
+$(TARGET).o: $(TARGET).cpp
+	g++ -I$(BOOST_INC) -I$(PYTHON_INCLUDE) -fPIC -c $(TARGET).cpp
