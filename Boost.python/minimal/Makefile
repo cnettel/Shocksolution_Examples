@@ -12,7 +12,7 @@ BOOST_LIB = $(BOOST_ROOT)/lib
 TARGET = hello_ext
  
 $(TARGET).so: $(TARGET).o
-	g++ -shared -Wl,--export-dynamic $(TARGET).o -L$(BOOST_LIB) -lboost_python -lpthread -ldl -lutil -lm -lpython2.7 -Xlinker -export-dynamic -o $(TARGET).so
+	g++ -shared -Wl,--export-dynamic $(TARGET).o -lboost_python -lpthread -ldl -lutil -lm -lpython2.7 -Xlinker -export-dynamic -o $(TARGET).so
  
 $(TARGET).o: $(TARGET).cpp
-	g++ -I$(BOOST_INC) -I$(PYTHON_INCLUDE) -fPIC -c $(TARGET).cpp
+	g++ -I$(PYTHON_INCLUDE) -fPIC -c $(TARGET).cpp
